@@ -3,60 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🐰 Coelho das Artes</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>🎨 Jogo das Artes - Enforcado Fofo 🎭</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div class="game-container">
 
-  <main class="container">
+    <!-- TELA DE ABERTURA -->
+    <div id="start-screen" class="screen active">
+      <h1 class="titulo">🎨 Jogo das Artes 🎭</h1>
+      <p class="subtitulo">Música • Dança • Teatro • Artes Visuais</p>
 
-    <!-- ===== TELA INICIAL ===== -->
-    <section id="telaInicial" class="tela ativa">
-      <div class="emoji-grande">🐇🌸</div>
-      <h1>Coelho das Artes</h1>
-      <p class="subtitulo">
-        Ajude o coelhinho a subir a escada respondendo perguntas
-        sobre <strong>música</strong>, <strong>dança</strong>,
-        <strong>teatro</strong> e <strong>artes visuais</strong>!
+      <div class="boneco-abertura">🐰</div>
+
+      <p class="instrucoes">
+        Responda 10 perguntas sobre Arte.<br>
+        Se errar, o coelhinho fica triste! 😢
       </p>
-      <button id="btnIniciar" class="btn-principal">✨ INICIAR ✨</button>
-      <p class="rodape">🎨 10 perguntas • 6º ano • Arte</p>
-    </section>
 
-    <!-- ===== TELA DO JOGO ===== -->
-    <section id="telaJogo" class="tela">
-      <header class="cabecalho">
-        <span id="infoPergunta">Pergunta 1 de 10</span>
-        <span>🐰 Acertos: <strong id="infoAcertos">0</strong></span>
-      </header>
+      <button id="btn-iniciar" class="btn-fofo">✨ Começar a Jogar ✨</button>
+    </div>
 
-      <div class="cenario">
-        <div id="escada" class="escada"></div>
+    <!-- TELA DO JOGO -->
+    <div id="game-screen" class="screen">
+      <div class="top-bar">
+        <div class="info">Rodada: <span id="current-round">1</span>/10</div>
+        <div class="info">Acertos: <span id="score">0</span></div>
       </div>
 
-      <div class="caixa-pergunta">
-        <p id="textoPergunta" class="texto-pergunta">Carregando...</p>
-        <div id="alternativas" class="alternativas"></div>
+      <div class="coelho-area">
+        <div id="coelho" class="coelho">🐇</div>
       </div>
 
-      <div class="rodape-jogo">
-        <p id="mensagem" class="mensagem"></p>
-        <button id="btnProxima" class="btn-proxima">Próxima ➡️</button>
+      <div class="pergunta-box">
+        <p id="pergunta-texto">Carregando pergunta...</p>
       </div>
-    </section>
 
-    <!-- ===== TELA FINAL ===== -->
-    <section id="telaFinal" class="tela">
-      <div id="emojiFinal" class="emoji-grande">🐇✨</div>
-      <h2 id="tituloFinal">Parabéns!</h2>
-      <p id="placarFinal" class="subtitulo"></p>
-      <button id="btnReiniciar" class="btn-principal">🔄 Jogar de novo</button>
-    </section>
+      <div id="alternativas-container" class="alternativas"></div>
 
-  </main>
+      <div id="feedback" class="feedback"></div>
+    </div>
+
+    <!-- TELA FINAL -->
+    <div id="end-screen" class="screen">
+      <h2 id="end-title">Fim de Jogo!</h2>
+      <p class="resultado-texto">Você acertou <span id="final-score">0</span> de 10 perguntas.</p>
+      <div id="final-message" class="final-message"></div>
+      <button id="btn-reiniciar" class="btn-fofo">🔄 Jogar Novamente</button>
+    </div>
+
+  </div>
 
   <script src="script.js"></script>
 </body>
