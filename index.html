@@ -1,122 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🐰 Jogo das Artes - Coelhinho da Cenoura 🥕</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐰 Coelho das Artes - Jogo Educativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <!-- Tela de Abertura -->
-        <div id="start-screen" class="screen active">
-            <div class="fofo-header">
-                <h1>🐰 Jogo das Artes 🥕</h1>
-                <p>Música • Dança • Teatro • Artes Visuais</p>
-            </div>
+  <div class="game-container" id="gameContainer">
 
-            <div class="abertura-ilustracao">
-                <div class="nuvem nuvem-1">☁️</div>
-                <div class="nuvem nuvem-2">☁️</div>
-                <div class="nuvem nuvem-3">☁️</div>
-                <div class="estrela estrela-1">⭐</div>
-                <div class="estrela estrela-2">✨</div>
-                <div class="coracao coracao-1">💗</div>
-                <div class="coracao coracao-2">💚</div>
-
-                <!-- Escadinha da abertura -->
-                <div class="escada-abertura">
-                    <div class="degrau-a"></div>
-                    <div class="degrau-a"></div>
-                    <div class="degrau-a"></div>
-                    <div class="degrau-a"></div>
-                </div>
-
-                <!-- Cenoura no topo -->
-                <div class="cenoura-abertura">🥕</div>
-
-                <!-- Coelhinho fofo -->
-                <div class="coelho-abertura">
-                    <div class="orelha-e"></div>
-                    <div class="orelha-d"></div>
-                    <div class="rosto">
-                        <div class="olho-e"></div>
-                        <div class="olho-d"></div>
-                        <div class="nariz"></div>
-                        <div class="bochecha-e"></div>
-                        <div class="bochecha-d"></div>
-                    </div>
-                    <div class="corpinho"></div>
-                </div>
-            </div>
-
-            <p class="instrucoes">Responda 10 perguntas sobre Arte.<br>A cada acerto, o coelhinho sobe um degrau até a cenoura! 🥕</p>
-            <button id="btn-iniciar" class="btn-fofo">✨ Começar a Jogar ✨</button>
-        </div>
-
-        <!-- Tela do Jogo -->
-        <div id="game-screen" class="screen">
-            <div class="top-bar">
-                <div class="rodada">Rodada: <span id="current-round">1</span>/10</div>
-                <div class="acertos">Acertos: <span id="score">0</span></div>
-            </div>
-
-            <div class="cena-area">
-                <!-- Cenoura no topo -->
-                <div class="cenoura-topo" id="cenouraTopo">🥕</div>
-
-                <!-- Escada -->
-                <div class="escada" id="escada">
-                    <div class="degrau-jogo" data-degrau="10"></div>
-                    <div class="degrau-jogo" data-degrau="9"></div>
-                    <div class="degrau-jogo" data-degrau="8"></div>
-                    <div class="degrau-jogo" data-degrau="7"></div>
-                    <div class="degrau-jogo" data-degrau="6"></div>
-                    <div class="degrau-jogo" data-degrau="5"></div>
-                    <div class="degrau-jogo" data-degrau="4"></div>
-                    <div class="degrau-jogo" data-degrau="3"></div>
-                    <div class="degrau-jogo" data-degrau="2"></div>
-                    <div class="degrau-jogo" data-degrau="1"></div>
-                </div>
-
-                <!-- Coelhinho que sobe -->
-                <div class="coelhinho" id="personagem">
-                    <div class="orelha-ce"></div>
-                    <div class="orelha-cd"></div>
-                    <div class="rosto-coelho">
-                        <div class="olho-ce"></div>
-                        <div class="olho-cd"></div>
-                        <div class="nariz-coelho"></div>
-                        <div class="bochecha-ce"></div>
-                        <div class="bochecha-cd"></div>
-                    </div>
-                    <div class="corpo-coelho"></div>
-                    <div class="rabo-coelho"></div>
-                </div>
-            </div>
-
-            <div class="pergunta-box">
-                <p id="pergunta-texto">Carregando pergunta...</p>
-            </div>
-
-            <div id="alternativas-container" class="alternativas"></div>
-
-            <div id="feedback" class="feedback"></div>
-        </div>
-
-        <!-- Tela de Fim de Jogo -->
-        <div id="end-screen" class="screen">
-            <h2 id="end-title">Fim de Jogo!</h2>
-            <div class="resultado">
-                <p>Você acertou <span id="final-score">0</span> de 10 perguntas.</p>
-                <div id="final-message" class="final-message"></div>
-                <div class="trofeu" id="trofeu">🥕</div>
-            </div>
-            <button id="btn-reiniciar" class="btn-fofo">🔄 Jogar Novamente</button>
-        </div>
+    <!-- TELA DE ABERTURA -->
+    <div class="start-screen" id="startScreen">
+      <div class="bunny-hello">🐇🌸</div>
+      <h1>Coelho das Artes</h1>
+      <p class="start-text">
+        Ajude o coelhinho a subir a escada acertando perguntas sobre
+        música, dança, teatro e artes visuais!
+      </p>
+      <button class="start-btn" id="startBtn">✨ INICIAR ✨</button>
+      <div class="credits">🎨 10 perguntas • 6º ano • Arte</div>
     </div>
 
-    <script src="main.js"></script>
+    <!-- TELA DO JOGO -->
+    <div class="game-area" id="gameArea">
+      <div class="game-header">
+        <div class="round-info" id="roundInfo">Pergunta 1 / 10</div>
+        <div>🐰 Acertos: <span id="scoreDisplay">0</span></div>
+      </div>
+
+      <div class="scene">
+        <div class="ladder-area" id="ladderArea">
+          <div class="bunny-wrapper" id="bunnyWrapper">
+            <div class="bunny-emoji" id="bunnyEmoji">🐇</div>
+            <div class="carrot-throw" id="carrotThrow">🥕</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-text" id="questionText">Carregando...</div>
+        <div class="options-grid" id="optionsGrid"></div>
+      </div>
+
+      <div class="feedback-area">
+        <div class="message" id="feedbackMessage"></div>
+        <button class="next-btn" id="nextBtn">Próxima ➡️</button>
+      </div>
+    </div>
+
+    <!-- TELA DE FIM -->
+    <div class="end-screen" id="endScreen">
+      <div class="end-bunny" id="endBunny">🐇✨</div>
+      <h2 id="endTitle">Você conseguiu!</h2>
+      <p class="end-score-text" id="endScore"></p>
+      <button class="play-again-btn" id="playAgainBtn">Jogar de novo 🌱</button>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
