@@ -3,59 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🐰 Coelho das Artes - Jogo Educativo</title>
+  <title>🐰 Coelho das Artes</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="game-container" id="gameContainer">
 
-    <!-- TELA DE ABERTURA -->
-    <div class="start-screen" id="startScreen">
-      <div class="bunny-hello">🐇🌸</div>
+  <main class="container">
+
+    <!-- ===== TELA INICIAL ===== -->
+    <section id="telaInicial" class="tela ativa">
+      <div class="emoji-grande">🐇🌸</div>
       <h1>Coelho das Artes</h1>
-      <p class="start-text">
-        Ajude o coelhinho a subir a escada acertando perguntas sobre
-        música, dança, teatro e artes visuais!
+      <p class="subtitulo">
+        Ajude o coelhinho a subir a escada respondendo perguntas
+        sobre <strong>música</strong>, <strong>dança</strong>,
+        <strong>teatro</strong> e <strong>artes visuais</strong>!
       </p>
-      <button class="start-btn" id="startBtn">✨ INICIAR ✨</button>
-      <div class="credits">🎨 10 perguntas • 6º ano • Arte</div>
-    </div>
+      <button id="btnIniciar" class="btn-principal">✨ INICIAR ✨</button>
+      <p class="rodape">🎨 10 perguntas • 6º ano • Arte</p>
+    </section>
 
-    <!-- TELA DO JOGO -->
-    <div class="game-area" id="gameArea">
-      <div class="game-header">
-        <div class="round-info" id="roundInfo">Pergunta 1 / 10</div>
-        <div>🐰 Acertos: <span id="scoreDisplay">0</span></div>
+    <!-- ===== TELA DO JOGO ===== -->
+    <section id="telaJogo" class="tela">
+      <header class="cabecalho">
+        <span id="infoPergunta">Pergunta 1 de 10</span>
+        <span>🐰 Acertos: <strong id="infoAcertos">0</strong></span>
+      </header>
+
+      <div class="cenario">
+        <div id="escada" class="escada"></div>
       </div>
 
-      <div class="scene">
-        <!-- A escada e o coelho serão criados pelo JS aqui dentro -->
-        <div class="ladder-area" id="ladderArea"></div>
+      <div class="caixa-pergunta">
+        <p id="textoPergunta" class="texto-pergunta">Carregando...</p>
+        <div id="alternativas" class="alternativas"></div>
       </div>
 
-      <div class="question-box">
-        <div class="question-text" id="questionText">Carregando...</div>
-        <div class="options-grid" id="optionsGrid"></div>
+      <div class="rodape-jogo">
+        <p id="mensagem" class="mensagem"></p>
+        <button id="btnProxima" class="btn-proxima">Próxima ➡️</button>
       </div>
+    </section>
 
-      <div class="feedback-area">
-        <div class="message" id="feedbackMessage"></div>
-        <button class="next-btn" id="nextBtn">Próxima ➡️</button>
-      </div>
-    </div>
+    <!-- ===== TELA FINAL ===== -->
+    <section id="telaFinal" class="tela">
+      <div id="emojiFinal" class="emoji-grande">🐇✨</div>
+      <h2 id="tituloFinal">Parabéns!</h2>
+      <p id="placarFinal" class="subtitulo"></p>
+      <button id="btnReiniciar" class="btn-principal">🔄 Jogar de novo</button>
+    </section>
 
-    <!-- TELA DE FIM -->
-    <div class="end-screen" id="endScreen">
-      <div class="end-bunny" id="endBunny">🐇✨</div>
-      <h2 id="endTitle">Você conseguiu!</h2>
-      <p class="end-score-text" id="endScore"></p>
-      <button class="play-again-btn" id="playAgainBtn">Jogar de novo 🌱</button>
-    </div>
-
-  </div>
+  </main>
 
   <script src="script.js"></script>
 </body>
