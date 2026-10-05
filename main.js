@@ -1,308 +1,275 @@
-(function () {
-  'use strict';
+// =============================================
+//   🐰 COELHO DAS ARTES - JOGO EDUCATIVO
+// =============================================
 
-  // ---------- BANCO DE PERGUNTAS (6º ano - Artes) ----------
-  const QUESTIONS = [
-    // Música
-    {
-      question: "Qual é o nome do elemento que organiza os sons no tempo, dividindo a música em partes iguais?",
-      options: ["Melodia", "Ritmo", "Harmonia", "Timbre"],
-      correct: 1
-    },
-    {
-      question: "Qual instrumento musical é conhecido como 'rei dos instrumentos' e tem 88 teclas?",
-      options: ["Violão", "Piano", "Flauta", "Bateria"],
-      correct: 1
-    },
-    {
-      question: "O que é uma 'orquestra'?",
-      options: [
-        "Um grupo de dançarinos",
-        "Um conjunto de instrumentos musicais que tocam juntos",
-        "Uma apresentação teatral",
-        "Uma pintura famosa"
-      ],
-      correct: 1
-    },
-    // Dança
-    {
-      question: "Qual dança típica brasileira é conhecida pelos passos rápidos e pela saia rodada?",
-      options: ["Balé", "Samba", "Frevo", "Forró"],
-      correct: 1
-    },
-    {
-      question: "O balé clássico surgiu em qual país?",
-      options: ["Itália", "França", "Rússia", "Brasil"],
-      correct: 0
-    },
-    {
-      question: "A dança é uma forma de arte que usa:",
-      options: [
-        "Apenas palavras",
-        "O movimento do corpo",
-        "Somente tintas",
-        "Instrumentos de sopro"
-      ],
-      correct: 1
-    },
-    // Teatro
-    {
-      question: "No teatro, qual é o nome do texto que os atores interpretam?",
-      options: ["Roteiro", "Peça", "Libreto", "Argumento"],
-      correct: 1
-    },
-    {
-      question: "Quem é o profissional que dirige os atores e monta a peça teatral?",
-      options: ["Cenógrafo", "Diretor", "Figurinista", "Iluminador"],
-      correct: 1
-    },
-    // Artes Visuais
-    {
-      question: "Qual é o nome da técnica de pintura com pequenos pontos coloridos?",
-      options: ["Pontilhismo", "Aquarela", "Grafite", "Colagem"],
-      correct: 0
-    },
-    {
-      question: "Quem pintou a famosa obra 'Mona Lisa'?",
-      options: ["Van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Tarsila do Amaral"],
-      correct: 1
-    }
-  ];
+// ---------- PERGUNTAS ----------
+const PERGUNTAS = [
+  // MÚSICA
+  {
+    q: "Qual elemento organiza os sons no tempo, dividindo a música em partes iguais?",
+    opcoes: ["Melodia", "Ritmo", "Harmonia", "Timbre"],
+    correta: 1
+  },
+  {
+    q: "Qual instrumento é conhecido como 'rei dos instrumentos' e tem 88 teclas?",
+    opcoes: ["Violão", "Piano", "Flauta", "Bateria"],
+    correta: 1
+  },
+  {
+    q: "O que é uma orquestra?",
+    opcoes: [
+      "Um grupo de dançarinos",
+      "Um conjunto de instrumentos que tocam juntos",
+      "Uma peça de teatro",
+      "Um tipo de pintura"
+    ],
+    correta: 1
+  },
+  // DANÇA
+  {
+    q: "Qual dança brasileira tem passos rápidos e é típica do carnaval?",
+    opcoes: ["Balé", "Samba", "Frevo", "Forró"],
+    correta: 1
+  },
+  {
+    q: "Em qual país surgiu o balé clássico?",
+    opcoes: ["Itália", "França", "Rússia", "Brasil"],
+    correta: 0
+  },
+  {
+    q: "A dança é uma arte que usa principalmente:",
+    opcoes: [
+      "Apenas palavras",
+      "O movimento do corpo",
+      "Somente tintas",
+      "Instrumentos de sopro"
+    ],
+    correta: 1
+  },
+  // TEATRO
+  {
+    q: "No teatro, como se chama o texto que os atores interpretam?",
+    opcoes: ["Roteiro", "Peça", "Libreto", "Argumento"],
+    correta: 1
+  },
+  {
+    q: "Quem dirige os atores e coordena a montagem da peça?",
+    opcoes: ["Cenógrafo", "Diretor", "Figurinista", "Iluminador"],
+    correta: 1
+  },
+  // ARTES VISUAIS
+  {
+    q: "Qual técnica de pintura usa pequenos pontos coloridos?",
+    opcoes: ["Pontilhismo", "Aquarela", "Grafite", "Colagem"],
+    correta: 0
+  },
+  {
+    q: "Quem pintou a famosa obra 'Mona Lisa'?",
+    opcoes: ["Van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Tarsila do Amaral"],
+    correta: 1
+  }
+];
 
-  // ---------- VARIÁVEIS DE ESTADO ----------
-  let currentQuestionIndex = 0;
-  let score = 0;
-  let answered = false;
-  const totalQuestions = QUESTIONS.length;
-  const TOTAL_STEPS = 10;
-  let stepElements = [];
+// ---------- ESTADO ----------
+const TOTAL_DEGRAUS = 10;
+let indiceAtual = 0;
+let acertos = 0;
+let respondida = false;
 
-  // Elementos DOM (serão preenchidos no init)
-  let startScreen, gameArea, endScreen, startBtn, playAgainBtn;
-  let roundInfo, scoreDisplay, questionText, optionsGrid;
-  let feedbackMessage, nextBtn, ladderArea;
-  let endBunny, endTitle, endScore;
-  let bunnyWrapper, carrotThrow;
+// ---------- REFERÊNCIAS DOM ----------
+const telaInicial = document.getElementById('telaInicial');
+const telaJogo = document.getElementById('telaJogo');
+const telaFinal = document.getElementById('telaFinal');
 
-  // ---------- CRIAÇÃO DO COELHO (feita uma única vez) ----------
-  function createBunny() {
-    bunnyWrapper = document.createElement('div');
-    bunnyWrapper.classList.add('bunny-wrapper');
-    bunnyWrapper.id = 'bunnyWrapper';
+const btnIniciar = document.getElementById('btnIniciar');
+const btnReiniciar = document.getElementById('btnReiniciar');
 
-    const bunnyEmoji = document.createElement('div');
-    bunnyEmoji.classList.add('bunny-emoji');
-    bunnyEmoji.textContent = '🐇';
+const infoPergunta = document.getElementById('infoPergunta');
+const infoAcertos = document.getElementById('infoAcertos');
+const escada = document.getElementById('escada');
+const textoPergunta = document.getElementById('textoPergunta');
+const alternativas = document.getElementById('alternativas');
+const mensagem = document.getElementById('mensagem');
+const btnProxima = document.getElementById('btnProxima');
 
-    carrotThrow = document.createElement('div');
-    carrotThrow.classList.add('carrot-throw');
-    carrotThrow.textContent = '🥕';
+const emojiFinal = document.getElementById('emojiFinal');
+const tituloFinal = document.getElementById('tituloFinal');
+const placarFinal = document.getElementById('placarFinal');
 
-    bunnyWrapper.appendChild(bunnyEmoji);
-    bunnyWrapper.appendChild(carrotThrow);
+// ---------- CRIA ESCADA E COELHO ----------
+function montarCenario() {
+  escada.innerHTML = '';
 
-    return bunnyWrapper;
+  // Cria os degraus
+  for (let i = 0; i < TOTAL_DEGRAUS; i++) {
+    const d = document.createElement('div');
+    d.className = 'degrau';
+    d.dataset.indice = i;
+    // Altura crescente para dar ideia de escada
+    d.style.marginBottom = (8 + i * 6) + 'px';
+    escada.appendChild(d);
   }
 
-  // ---------- CRIAÇÃO DA ESCADA ----------
-  function createLadder() {
-    // Limpa a área
-    ladderArea.innerHTML = '';
-    stepElements = [];
+  // Cria o coelho
+  const coelho = document.createElement('div');
+  coelho.className = 'coelho';
+  coelho.id = 'coelho';
+  coelho.innerHTML = '🐇<span class="cenoura">🥕</span>';
+  escada.appendChild(coelho);
+}
 
-    // Cria os 10 degraus
-    for (let i = 0; i < TOTAL_STEPS; i++) {
-      const step = document.createElement('div');
-      step.classList.add('step');
-      step.dataset.index = i;
-      const stepHeight = 8 + (i * 6);
-      step.style.marginBottom = stepHeight + 'px';
-      ladderArea.appendChild(step);
-      stepElements.push(step);
-    }
+// ---------- POSICIONA O COELHO ----------
+function posicionarCoelho(qtdAcertos) {
+  const coelho = document.getElementById('coelho');
+  if (!coelho) return;
 
-    // Cria o coelho (novo, sempre)
-    createBunny();
-    ladderArea.appendChild(bunnyWrapper);
-
-    // Posiciona no chão
-    updateBunnyPosition(score);
-  }
-
-  // ---------- ATUALIZA POSIÇÃO DO COELHO ----------
-  function updateBunnyPosition(scoreValue) {
-    if (!bunnyWrapper) return;
-
-    // Marca degraus preenchidos
-    stepElements.forEach((step, idx) => {
-      if (idx < scoreValue) {
-        step.classList.add('filled');
-      } else {
-        step.classList.remove('filled');
-      }
-    });
-
-    // Ajusta a altura do coelho
-    if (scoreValue === 0) {
-      bunnyWrapper.style.marginBottom = '10px';
+  // Preenche os degraus
+  const degraus = escada.querySelectorAll('.degrau');
+  degraus.forEach((d, i) => {
+    if (i < qtdAcertos) {
+      d.classList.add('preenchido');
     } else {
-      const stepIndex = Math.min(scoreValue - 1, TOTAL_STEPS - 1);
-      const stepHeight = 8 + (stepIndex * 6);
-      bunnyWrapper.style.marginBottom = (stepHeight + 28) + 'px';
+      d.classList.remove('preenchido');
     }
-  }
+  });
 
-  // ---------- EFEITO DE ERRO ----------
-  function bunnyThrowCarrotAndCry() {
-    if (!bunnyWrapper || !carrotThrow) return;
+  // Calcula deslocamento horizontal (esquerda -> direita)
+  // O coelho começa na esquerda e sobe. Quanto mais acertos, mais para cima e direita.
+  const coelhoLargura = 60; // aprox
+  const degrauLargura = 46 + 6; // largura + gap
 
-    bunnyWrapper.classList.add('bunny-crying');
-    carrotThrow.classList.add('throw');
-
-    setTimeout(() => {
-      bunnyWrapper.classList.remove('bunny-crying');
-      carrotThrow.classList.remove('throw');
-    }, 900);
-  }
-
-  // ---------- CARREGAR PERGUNTA ----------
-  function loadQuestion() {
-    answered = false;
-    nextBtn.classList.remove('visible');
-    feedbackMessage.textContent = '';
-
-    const q = QUESTIONS[currentQuestionIndex];
-
-    roundInfo.textContent = `Pergunta ${currentQuestionIndex + 1} / ${totalQuestions}`;
-    scoreDisplay.textContent = score;
-    questionText.textContent = q.question;
-
-    optionsGrid.innerHTML = '';
-    const letters = ['A', 'B', 'C', 'D'];
-
-    q.options.forEach((opt, idx) => {
-      const btn = document.createElement('button');
-      btn.classList.add('option-btn');
-      btn.innerHTML = `<span class="letter">${letters[idx]}</span> ${opt}`;
-      btn.dataset.index = idx;
-      btn.addEventListener('click', () => handleAnswer(idx, btn));
-      optionsGrid.appendChild(btn);
-    });
-
-    updateBunnyPosition(score);
-  }
-
-  // ---------- TRATAR RESPOSTA ----------
-  function handleAnswer(selectedIndex, btnElement) {
-    if (answered) return;
-    answered = true;
-
-    const q = QUESTIONS[currentQuestionIndex];
-    const isCorrect = (selectedIndex === q.correct);
-    const allBtns = document.querySelectorAll('.option-btn');
-    allBtns.forEach(btn => (btn.disabled = true));
-
-    if (isCorrect) {
-      btnElement.classList.add('correct');
-      score++;
-      scoreDisplay.textContent = score;
-      feedbackMessage.textContent = '✅ Acertou! Coelho subiu um degrau!';
-      updateBunnyPosition(score);
-    } else {
-      btnElement.classList.add('wrong');
-      if (allBtns[q.correct]) allBtns[q.correct].classList.add('correct');
-      feedbackMessage.textContent = '❌ Errou! O coelho jogou a cenoura e chorou...';
-      bunnyThrowCarrotAndCry();
-    }
-
-    nextBtn.classList.add('visible');
-  }
-
-  // ---------- PRÓXIMA PERGUNTA ----------
-  function nextQuestion() {
-    if (currentQuestionIndex < totalQuestions - 1) {
-      currentQuestionIndex++;
-      loadQuestion();
-    } else {
-      showEndScreen();
-    }
-  }
-
-  // ---------- TELA FINAL ----------
-  function showEndScreen() {
-    gameArea.classList.remove('active');
-    endScreen.classList.add('active');
-
-    const acertos = score;
-    endScore.textContent = `Você acertou ${acertos} de ${totalQuestions} perguntas!`;
-
-    if (acertos === totalQuestions) {
-      endTitle.textContent = '🌟 Perfeito! Coelho no topo! 🌟';
-      endBunny.textContent = '🐇🏆';
-    } else if (acertos >= 7) {
-      endTitle.textContent = '😊 Muito bem! Coelho quase lá!';
-      endBunny.textContent = '🐇✨';
-    } else if (acertos >= 4) {
-      endTitle.textContent = '🐰 Continue tentando! Você é capaz!';
-      endBunny.textContent = '🐇🌱';
-    } else {
-      endTitle.textContent = '🥕 Não desista! Estude mais arte!';
-      endBunny.textContent = '🐇💪';
-    }
-  }
-
-  // ---------- INICIAR JOGO ----------
-  function startGame() {
-    startScreen.classList.add('hidden');
-    endScreen.classList.remove('active');
-    gameArea.classList.add('active');
-
-    currentQuestionIndex = 0;
-    score = 0;
-    answered = false;
-
-    createLadder();
-    loadQuestion();
-  }
-
-  // ---------- REINICIAR ----------
-  function resetGame() {
-    endScreen.classList.remove('active');
-    startGame();
-  }
-
-  // ---------- INICIALIZAÇÃO ----------
-  function init() {
-    // Pega todos os elementos do DOM
-    startScreen     = document.getElementById('startScreen');
-    gameArea        = document.getElementById('gameArea');
-    endScreen       = document.getElementById('endScreen');
-    startBtn        = document.getElementById('startBtn');
-    playAgainBtn    = document.getElementById('playAgainBtn');
-    roundInfo       = document.getElementById('roundInfo');
-    scoreDisplay    = document.getElementById('scoreDisplay');
-    questionText    = document.getElementById('questionText');
-    optionsGrid     = document.getElementById('optionsGrid');
-    feedbackMessage = document.getElementById('feedbackMessage');
-    nextBtn         = document.getElementById('nextBtn');
-    ladderArea      = document.getElementById('ladderArea');
-    endBunny        = document.getElementById('endBunny');
-    endTitle        = document.getElementById('endTitle');
-    endScore        = document.getElementById('endScore');
-
-    // Event listeners
-    startBtn.addEventListener('click', startGame);
-    nextBtn.addEventListener('click', nextQuestion);
-    playAgainBtn.addEventListener('click', resetGame);
-
-    // Cria a escada já escondida (gameArea está display:none)
-    createLadder();
-  }
-
-  // Aguarda o DOM estar pronto
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+  if (qtdAcertos === 0) {
+    // No chão, na esquerda
+    coelho.style.transform = `translate(0px, 0px)`;
   } else {
-    init();
+    const deslocX = qtdAcertos * degrauLargura;
+    const deslocY = 8 + (qtdAcertos - 1) * 6 + 28; // altura do degrau + base
+    coelho.style.transform = `translate(${deslocX}px, -${deslocY}px)`;
   }
-})();
+}
+
+// ---------- CARREGA PERGUNTA ----------
+function carregarPergunta() {
+  respondida = false;
+  btnProxima.classList.remove('visivel');
+  mensagem.textContent = '';
+
+  const pergunta = PERGUNTAS[indiceAtual];
+
+  infoPergunta.textContent = `Pergunta ${indiceAtual + 1} de ${PERGUNTAS.length}`;
+  infoAcertos.textContent = acertos;
+  textoPergunta.textContent = pergunta.q;
+
+  alternativas.innerHTML = '';
+  const letras = ['A', 'B', 'C', 'D'];
+
+  pergunta.opcoes.forEach((texto, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'btn-alternativa';
+    btn.innerHTML = `<span class="letra">${letras[i]}</span> ${texto}`;
+    btn.addEventListener('click', () => responder(i, btn));
+    alternativas.appendChild(btn);
+  });
+
+  posicionarCoelho(acertos);
+}
+
+// ---------- RESPONDER ----------
+function responder(indiceEscolhido, botaoClicado) {
+  if (respondida) return;
+  respondida = true;
+
+  const pergunta = PERGUNTAS[indiceAtual];
+  const todosBotoes = alternativas.querySelectorAll('.btn-alternativa');
+  todosBotoes.forEach(b => (b.disabled = true));
+
+  if (indiceEscolhido === pergunta.correta) {
+    // ACERTO
+    botaoClicado.classList.add('correta');
+    acertos++;
+    infoAcertos.textContent = acertos;
+    mensagem.textContent = '✅ Acertou! O coelho subiu um degrau!';
+    posicionarCoelho(acertos);
+  } else {
+    // ERRO
+    botaoClicado.classList.add('errada');
+    // Mostra a correta
+    todosBotoes[pergunta.correta].classList.add('correta');
+    mensagem.textContent = '❌ Errou! O coelho jogou a cenoura e chorou...';
+    coelhoChoraEJogaCenoura();
+  }
+
+  btnProxima.classList.add('visivel');
+}
+
+// ---------- EFEITO DE ERRO ----------
+function coelhoChoraEJogaCenoura() {
+  const coelho = document.getElementById('coelho');
+  if (!coelho) return;
+
+  coelho.classList.add('chorando');
+  coelho.classList.add('jogando-cenoura');
+
+  setTimeout(() => {
+    coelho.classList.remove('chorando');
+    coelho.classList.remove('jogando-cenoura');
+  }, 900);
+}
+
+// ---------- PRÓXIMA ----------
+function proximaPergunta() {
+  if (indiceAtual < PERGUNTAS.length - 1) {
+    indiceAtual++;
+    carregarPergunta();
+  } else {
+    finalizarJogo();
+  }
+}
+
+// ---------- FINALIZAR ----------
+function finalizarJogo() {
+  telaJogo.classList.remove('ativa');
+  telaFinal.classList.add('ativa');
+
+  placarFinal.textContent = `Você acertou ${acertos} de ${PERGUNTAS.length} perguntas!`;
+
+  if (acertos === PERGUNTAS.length) {
+    tituloFinal.textContent = '🌟 Perfeito! Coelho no topo! 🌟';
+    emojiFinal.textContent = '🐇🏆';
+  } else if (acertos >= 7) {
+    tituloFinal.textContent = '😊 Muito bem! Quase lá!';
+    emojiFinal.textContent = '🐇✨';
+  } else if (acertos >= 4) {
+    tituloFinal.textContent = '🐰 Continue tentando!';
+    emojiFinal.textContent = '🐇🌱';
+  } else {
+    tituloFinal.textContent = '🥕 Não desista!';
+    emojiFinal.textContent = '🐇💪';
+  }
+}
+
+// ---------- INICIAR ----------
+function iniciarJogo() {
+  indiceAtual = 0;
+  acertos = 0;
+  respondida = false;
+
+  telaInicial.classList.remove('ativa');
+  telaFinal.classList.remove('ativa');
+  telaJogo.classList.add('ativa');
+
+  montarCenario();
+  carregarPergunta();
+}
+
+// ---------- EVENTOS ----------
+btnIniciar.addEventListener('click', iniciarJogo);
+btnProxima.addEventListener('click', proximaPergunta);
+btnReiniciar.addEventListener('click', iniciarJogo);
+
+// Garante que a tela inicial é a única ativa ao carregar
+window.addEventListener('DOMContentLoaded', () => {
+  telaInicial.classList.add('ativa');
+  telaJogo.classList.remove('ativa');
+  telaFinal.classList.remove('ativa');
+});
