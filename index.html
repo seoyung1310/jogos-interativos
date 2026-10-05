@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matemática Divertida - 6º Ano</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🧮 Matemática Divertida</h1>
+        <p class="subtitulo">Desafie seus conhecimentos do 6º ano!</p>
+    </header>
+
+    <main>
+        <!-- Tela Inicial -->
+        <section id="tela-inicial" class="tela ativa">
+            <div class="card">
+                <h2>Bem-vindo(a) ao Desafio! 🚀</h2>
+                <p>Responda 10 perguntas de matemática e mostre que você é fera nos números!</p>
+                <ul class="regras">
+                    <li>✅ Cada resposta correta vale <strong>10 pontos</strong></li>
+                    <li>❌ Você tem <strong>3 vidas</strong> para jogar</li>
+                    <li>⏱️ Sem tempo limite — pense com calma!</li>
+                </ul>
+                <button id="btn-iniciar" class="btn-principal">Começar Jogo</button>
+            </div>
+        </section>
+
+        <!-- Tela do Jogo -->
+        <section id="tela-jogo" class="tela">
+            <div class="painel-info">
+                <div class="info-item">
+                    <span class="label">Pergunta</span>
+                    <span id="num-pergunta">1/10</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Pontos</span>
+                    <span id="pontos">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Vidas</span>
+                    <span id="vidas">❤️❤️❤️</span>
+                </div>
+            </div>
+
+            <div class="barra-progresso">
+                <div id="progresso" class="progresso-preenchido"></div>
+            </div>
+
+            <div class="card pergunta-card">
+                <h2 id="texto-pergunta">Carregando pergunta...</h2>
+                <div id="opcoes" class="opcoes-container"></div>
+                <p id="feedback" class="feedback"></p>
+            </div>
+        </section>
+
+        <!-- Tela Final -->
+        <section id="tela-final" class="tela">
+            <div class="card final-card">
+                <h2 id="titulo-final">Fim de Jogo!</h2>
+                <div id="emoji-final" class="emoji-final">🎉</div>
+                <p id="mensagem-final"></p>
+                <p class="pontuacao-final">Sua pontuação: <strong id="pontos-finais">0</strong> pontos</p>
+                <button id="btn-reiniciar" class="btn-principal">Jogar Novamente</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>🎓 Projeto Educativo - 6º Ano do Ensino Fundamental</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
