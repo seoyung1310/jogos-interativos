@@ -1,262 +1,424 @@
+/* Reset e Configurações Globais */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', 'Comic Sans MS', sans-serif;
+    font-family: 'Quicksand', sans-serif;
 }
 
 body {
+    background: linear-gradient(135deg, #fce4ec, #e8f5e9, #e3f2fd);
     min-height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
     padding: 20px;
-    color: #333;
 }
 
-header {
-    text-align: center;
-    color: white;
-    margin-bottom: 25px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 8px;
-}
-
-.subtitulo {
-    font-size: 1.1rem;
-    opacity: 0.95;
-}
-
-main {
+.game-container {
     width: 100%;
-    max-width: 700px;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 40px;
+    padding: 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 3px solid #fff;
+    position: relative;
+    overflow: hidden;
 }
 
-.tela {
+/* Telas */
+.screen {
     display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     animation: fadeIn 0.5s ease;
 }
 
-.tela.ativa {
-    display: block;
+.screen.active {
+    display: flex;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
 
-.card {
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    text-align: center;
+/* Tela de Abertura */
+.fofo-header h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    color: #f48fb1;
+    text-shadow: 2px 2px 0 #fff;
+    margin-bottom: 10px;
 }
 
-.card h2 {
-    color: #764ba2;
-    margin-bottom: 20px;
-    font-size: 1.6rem;
-}
-
-.card p {
-    margin-bottom: 15px;
+.fofo-header p {
     font-size: 1.1rem;
+    color: #81c784;
+    font-weight: 600;
+    background: #fff;
+    display: inline-block;
+    padding: 5px 20px;
+    border-radius: 20px;
+}
+
+.personagem-abertura {
+    margin: 30px 0;
+}
+
+.instrucoes {
+    font-size: 1.1rem;
+    color: #64b5f6;
+    margin-bottom: 25px;
+    font-weight: 600;
     line-height: 1.6;
 }
 
-.regras {
-    list-style: none;
-    text-align: left;
-    background: #f8f4ff;
-    padding: 20px;
-    border-radius: 12px;
-    margin: 20px 0;
-}
-
-.regras li {
-    padding: 8px 0;
-    font-size: 1.05rem;
-}
-
-.btn-principal {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
+/* Botão Fofo */
+.btn-fofo {
+    background: #f8bbd0;
+    color: #fff;
     border: none;
     padding: 15px 40px;
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 1.3rem;
+    font-family: 'Fredoka One', cursive;
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
-}
-
-.btn-principal:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 8px 20px rgba(118, 75, 162, 0.6);
-}
-
-.btn-principal:active {
-    transform: translateY(0) scale(0.98);
-}
-
-/* Painel de informações */
-.painel-info {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.info-item {
-    background: white;
-    padding: 12px 18px;
-    border-radius: 12px;
-    flex: 1;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.info-item .label {
-    display: block;
-    font-size: 0.8rem;
-    color: #888;
-    text-transform: uppercase;
+    box-shadow: 0 8px 0 #f48fb1, 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.1s ease;
     letter-spacing: 1px;
 }
 
-.info-item span:last-child {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #764ba2;
+.btn-fofo:hover {
+    background: #f48fb1;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 0 #ec407a, 0 12px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Barra de progresso */
-.barra-progresso {
-    height: 12px;
-    background: rgba(255,255,255,0.4);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 20px;
+.btn-fofo:active {
+    transform: translateY(5px);
+    box-shadow: 0 3px 0 #ec407a, 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-.progresso-preenchido {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #f093fb, #f5576c);
-    border-radius: 10px;
-    transition: width 0.4s ease;
-}
-
-/* Pergunta e opções */
-.pergunta-card h2 {
-    font-size: 1.4rem;
-    color: #333;
-    margin-bottom: 25px;
-    min-height: 60px;
-}
-
-.opcoes-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.opcao {
-    background: #f0f4ff;
-    border: 3px solid #c7d2fe;
-    padding: 15px 20px;
-    border-radius: 15px;
-    font-size: 1.1rem;
+/* Barra Superior */
+.top-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
     font-weight: 600;
+    color: #64b5f6;
+    font-size: 1.1rem;
+}
+
+.rodada, .acertos {
+    background: #fff;
+    padding: 8px 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 0 #e3f2fd;
+}
+
+/* Boneco e Forca */
+.boneco-area {
+    position: relative;
+    width: 200px;
+    height: 180px;
+    margin: 10px auto 20px;
+}
+
+.forca {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 150px;
+}
+
+.poste {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 150px;
+    background: #a1887f;
+    border-radius: 4px;
+}
+
+.trave {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 80px;
+    height: 8px;
+    background: #a1887f;
+    border-radius: 4px;
+}
+
+.corda {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 30px;
+    background: #bcaaa4;
+    border-radius: 2px;
+}
+
+/* Boneco Fofo */
+.boneco-fofo {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 120px;
+    transition: all 0.3s ease;
+}
+
+/* Partes do Boneco */
+.cabeca {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: #ffccbc;
+    border-radius: 50%;
+    border: 3px solid #ffab91;
+    box-shadow: 0 4px 0 #ffab91;
+    z-index: 2;
+}
+
+.corpo {
+    position: absolute;
+    top: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 45px;
+    background: #b3e5fc;
+    border-radius: 15px 15px 10px 10px;
+    border: 3px solid #81d4fa;
+    box-shadow: 0 4px 0 #81d4fa;
+    z-index: 1;
+}
+
+.bracos {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 10px;
+    background: #ffccbc;
+    border-radius: 10px;
+    border: 2px solid #ffab91;
+}
+
+.pernas {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 35px;
+    height: 25px;
+    background: #c8e6c9;
+    border-radius: 0 0 10px 10px;
+    border: 3px solid #a5d6a7;
+}
+
+/* Olhos e Boca (tristes) */
+.olhos {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 3;
+}
+
+.olho-esq, .olho-dir {
+    width: 8px;
+    height: 8px;
+    background: #5d4037;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.boca {
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 8px;
+    border-bottom: 3px solid #5d4037;
+    border-radius: 0 0 10px 10px;
+    transition: all 0.3s ease;
+    z-index: 3;
+}
+
+/* Estados de Erro (triste) */
+.boneco-fofo.triste .olho-esq,
+.boneco-fofo.triste .olho-dir {
+    height: 4px;
+    border-radius: 2px;
+    background: #5d4037;
+    transform: translateY(2px);
+}
+
+.boneco-fofo.triste .boca {
+    border-bottom: none;
+    border-top: 3px solid #5d4037;
+    border-radius: 10px 10px 0 0;
+    top: 38px;
+}
+
+/* Pergunta */
+.pergunta-box {
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 25px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 6px 0 #e3f2fd;
+    border: 2px solid #bbdefb;
+}
+
+#pergunta-texto {
+    font-size: 1.2rem;
+    color: #5d4037;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+/* Alternativas */
+.alternativas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.alternativa-btn {
+    background: #fff;
+    border: 3px solid #f8bbd0;
+    padding: 15px 10px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #5d4037;
     cursor: pointer;
     transition: all 0.2s ease;
-    text-align: left;
-    color: #333;
+    box-shadow: 0 5px 0 #f8bbd0;
+    font-family: 'Quicksand', sans-serif;
 }
 
-.opcao:hover:not(.desabilitada) {
-    background: #dbeafe;
-    border-color: #667eea;
-    transform: translateX(5px);
+.alternativa-btn:hover:not(:disabled) {
+    background: #fce4ec;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 0 #f8bbd0;
 }
 
-.opcao.correta {
-    background: #d1fae5;
-    border-color: #10b981;
-    color: #065f46;
+.alternativa-btn:active:not(:disabled) {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #f8bbd0;
 }
 
-.opcao.errada {
-    background: #fee2e2;
-    border-color: #ef4444;
-    color: #991b1b;
+.alternativa-btn.correta {
+    background: #c8e6c9;
+    border-color: #a5d6a7;
+    box-shadow: 0 5px 0 #a5d6a7;
+    color: #2e7d32;
 }
 
-.opcao.desabilitada {
+.alternativa-btn.errada {
+    background: #ffcdd2;
+    border-color: #ef9a9a;
+    box-shadow: 0 5px 0 #ef9a9a;
+    color: #c62828;
+}
+
+.alternativa-btn:disabled {
     cursor: not-allowed;
-    opacity: 0.7;
+    opacity: 0.9;
 }
 
+/* Feedback */
 .feedback {
     font-size: 1.2rem;
-    font-weight: bold;
+    font-weight: 600;
     min-height: 30px;
-    margin: 0;
+    color: #64b5f6;
+    transition: all 0.3s ease;
 }
 
-.feedback.acerto { color: #10b981; }
-.feedback.erro { color: #ef4444; }
-
-/* Tela final */
-.emoji-final {
-    font-size: 5rem;
-    margin: 10px 0;
-    animation: bounce 1s infinite alternate;
+/* Tela Final */
+#end-screen h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.2rem;
+    color: #f48fb1;
+    margin-bottom: 20px;
 }
 
-@keyframes bounce {
-    from { transform: translateY(0); }
-    to { transform: translateY(-15px); }
+.resultado {
+    background: #fff;
+    padding: 25px 35px;
+    border-radius: 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 6px 0 #e3f2fd;
+    border: 2px solid #bbdefb;
 }
 
-.pontuacao-final {
+.resultado p {
     font-size: 1.3rem;
-    background: #f8f4ff;
-    padding: 15px;
-    border-radius: 12px;
-    margin: 20px 0;
+    color: #5d4037;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
 
-.pontuacao-final strong {
-    color: #764ba2;
-    font-size: 1.6rem;
-}
-
-footer {
-    margin-top: 30px;
-    color: white;
-    text-align: center;
-    opacity: 0.9;
-    font-size: 0.9rem;
+.final-message {
+    font-size: 1.1rem;
+    color: #81c784;
+    font-weight: 600;
 }
 
 /* Responsividade */
-@media (max-width: 500px) {
-    header h1 { font-size: 1.8rem; }
-    .card { padding: 20px; }
-    .card h2 { font-size: 1.2rem; }
-    .painel-info { flex-wrap: wrap; }
-    .info-item { padding: 8px 10px; }
-    .info-item span:last-child { font-size: 1rem; }
-    .opcao { font-size: 1rem; padding: 12px 15px; }
-    .btn-principal { padding: 12px 30px; font-size: 1rem; }
+@media (max-width: 600px) {
+    .game-container {
+        padding: 20px 15px;
+        border-radius: 30px;
+    }
+
+    .fofo-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .alternativas {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-fofo {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+    }
+
+    #pergunta-texto {
+        font-size: 1rem;
+    }
+
+    .boneco-area {
+        width: 160px;
+        height: 150px;
+    }
 }
