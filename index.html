@@ -3,74 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matemática Divertida - 6º Ano</title>
+    <title>🎨 Jogo das Artes - Enforcado Fofo 🎭</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Fonte fofa do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>🧮 Matemática Divertida</h1>
-        <p class="subtitulo">Desafie seus conhecimentos do 6º ano!</p>
-    </header>
-
-    <main>
-        <!-- Tela Inicial -->
-        <section id="tela-inicial" class="tela ativa">
-            <div class="card">
-                <h2>Bem-vindo(a) ao Desafio! 🚀</h2>
-                <p>Responda 10 perguntas de matemática e mostre que você é fera nos números!</p>
-                <ul class="regras">
-                    <li>✅ Cada resposta correta vale <strong>10 pontos</strong></li>
-                    <li>❌ Você tem <strong>3 vidas</strong> para jogar</li>
-                    <li>⏱️ Sem tempo limite — pense com calma!</li>
-                </ul>
-                <button id="btn-iniciar" class="btn-principal">Começar Jogo</button>
+    <div class="game-container">
+        <!-- Tela de Abertura -->
+        <div id="start-screen" class="screen active">
+            <div class="fofo-header">
+                <h1>🎨 Jogo das Artes 🎭</h1>
+                <p>Música • Dança • Teatro • Artes Visuais</p>
             </div>
-        </section>
+            <div class="personagem-abertura">
+                <div class="boneco-fofo">
+                    <div class="cabeca"></div>
+                    <div class="corpo"></div>
+                    <div class="bracos"></div>
+                    <div class="pernas"></div>
+                </div>
+            </div>
+            <p class="instrucoes">Responda 10 perguntas sobre Arte.<br>Se errar, o bonequinho fica triste! 😢</p>
+            <button id="btn-iniciar" class="btn-fofo">✨ Começar a Jogar ✨</button>
+        </div>
 
         <!-- Tela do Jogo -->
-        <section id="tela-jogo" class="tela">
-            <div class="painel-info">
-                <div class="info-item">
-                    <span class="label">Pergunta</span>
-                    <span id="num-pergunta">1/10</span>
+        <div id="game-screen" class="screen">
+            <div class="top-bar">
+                <div class="rodada">Rodada: <span id="current-round">1</span>/10</div>
+                <div class="acertos">Acertos: <span id="score">0</span></div>
+            </div>
+
+            <div class="boneco-area">
+                <div id="boneco" class="boneco-fofo">
+                    <div class="cabeca"></div>
+                    <div class="corpo"></div>
+                    <div class="bracos"></div>
+                    <div class="pernas"></div>
+                    <div class="olhos">
+                        <div class="olho-esq"></div>
+                        <div class="olho-dir"></div>
+                    </div>
+                    <div class="boca"></div>
                 </div>
-                <div class="info-item">
-                    <span class="label">Pontos</span>
-                    <span id="pontos">0</span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Vidas</span>
-                    <span id="vidas">❤️❤️❤️</span>
+                <div class="forca">
+                    <div class="poste"></div>
+                    <div class="trave"></div>
+                    <div class="corda"></div>
                 </div>
             </div>
 
-            <div class="barra-progresso">
-                <div id="progresso" class="progresso-preenchido"></div>
+            <div class="pergunta-box">
+                <p id="pergunta-texto">Carregando pergunta...</p>
             </div>
 
-            <div class="card pergunta-card">
-                <h2 id="texto-pergunta">Carregando pergunta...</h2>
-                <div id="opcoes" class="opcoes-container"></div>
-                <p id="feedback" class="feedback"></p>
+            <div id="alternativas-container" class="alternativas">
+                <!-- As alternativas serão inseridas pelo JS -->
             </div>
-        </section>
 
-        <!-- Tela Final -->
-        <section id="tela-final" class="tela">
-            <div class="card final-card">
-                <h2 id="titulo-final">Fim de Jogo!</h2>
-                <div id="emoji-final" class="emoji-final">🎉</div>
-                <p id="mensagem-final"></p>
-                <p class="pontuacao-final">Sua pontuação: <strong id="pontos-finais">0</strong> pontos</p>
-                <button id="btn-reiniciar" class="btn-principal">Jogar Novamente</button>
+            <div id="feedback" class="feedback"></div>
+        </div>
+
+        <!-- Tela de Fim de Jogo -->
+        <div id="end-screen" class="screen">
+            <h2 id="end-title">Fim de Jogo!</h2>
+            <div class="resultado">
+                <p>Você acertou <span id="final-score">0</span> de 10 perguntas.</p>
+                <div id="final-message" class="final-message"></div>
             </div>
-        </section>
-    </main>
+            <button id="btn-reiniciar" class="btn-fofo">🔄 Jogar Novamente</button>
+        </div>
+    </div>
 
-    <footer>
-        <p>🎓 Projeto Educativo - 6º Ano do Ensino Fundamental</p>
-    </footer>
-
-    <script src="script.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
