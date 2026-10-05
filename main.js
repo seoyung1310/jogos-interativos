@@ -31,17 +31,14 @@ const scoreSpan = document.getElementById('score');
 const finalScoreSpan = document.getElementById('final-score');
 const finalMessage = document.getElementById('final-message');
 const endTitle = document.getElementById('end-title');
-const personagem = document.getElementById('personagem');
-const bandeira = document.getElementById('bandeira');
+const coelhinho = document.getElementById('personagem');
+const cenouraTopo = document.getElementById('cenouraTopo');
 const trofeu = document.getElementById('trofeu');
 const degraus = document.querySelectorAll('.degrau-jogo');
 
-// ===== ALTURA DE CADA DEGRAU =====
-// A escada tem 10 degraus empilhados de baixo para cima.
-// Cada degrau tem 12px de altura + 8px de gap = 20px.
-// O personagem começa no chão (bottom: 30px) e sobe conforme os acertos.
-const ALTURA_DEGRAU = 20; // px (12px altura + 8px gap)
-const BOTTOM_INICIAL = 30; // px
+// ===== CONSTANTES DE MOVIMENTO =====
+const ALTURA_DEGRAU = 20;
+const BOTTOM_INICIAL = 30;
 
 // ===== INICIAR JOGO =====
 function iniciarJogo() {
@@ -49,21 +46,15 @@ function iniciarJogo() {
     acertos = 0;
     respondeu = false;
 
-    // Resetar personagem
-    personagem.classList.remove('triste');
-    personagem.style.bottom = BOTTOM_INICIAL + 'px';
+    coelhinho.classList.remove('triste');
+    coelhinho.style.bottom = BOTTOM_INICIAL + 'px';
 
-    // Resetar degraus
     degraus.forEach(d => d.classList.remove('ativo'));
+    cenouraTopo.classList.remove('alcancada');
 
-    // Resetar bandeira
-    bandeira.classList.remove('alcancada');
-
-    // Resetar placar
     currentRoundSpan.textContent = '1';
     scoreSpan.textContent = '0';
 
-    // Trocar telas
     startScreen.classList.remove('active');
     endScreen.classList.remove('active');
     gameScreen.classList.add('active');
@@ -113,23 +104,20 @@ function verificarResposta(indexSelecionado) {
         acertos++;
         scoreSpan.textContent = acertos;
         botoes[indexSelecionado].classList.add('correta');
-        feedback.textContent = '✅ Muito bem! Subiu mais um degrau!';
+        feedback.textContent = '✅ Muito bem! O coelhinho subiu mais um degrau! 🐰';
         feedback.style.color = '#66bb6a';
 
-        // Ativar o degrau correspondente (do 1 ao 10)
         const degrauIndex = acertos - 1;
         if (degraus[degrauIndex]) {
             degraus[degrauIndex].classList.add('ativo');
         }
 
-        // Subir o personagem
         const novoBottom = BOTTOM_INICIAL + (acertos * ALTURA_DEGRAU);
-        personagem.style.bottom = novoBottom + 'px';
+        coelhinho.style.bottom = novoBottom + 'px';
 
-        // Se acertou tudo, comemorar
         if (acertos === 10) {
-            bandeira.classList.add('alcancada');
-            feedback.textContent = '🏆 Você chegou ao topo! Parabéns!';
+            cenouraTopo.classList.add('alcancada');
+            feedback.textContent = '🥕 O coelhinho alcançou a cenoura! Parabéns!';
             feedback.style.color = '#ffb300';
         }
 
@@ -143,14 +131,13 @@ function verificarResposta(indexSelecionado) {
         botoes[indexSelecionado].classList.add('errada');
         botoes[perguntaAtual.correta].classList.add('correta');
 
-        // Personagem fica triste
-        personagem.classList.add('triste');
+        coelhinho.classList.add('triste');
 
-        feedback.textContent = '❌ Ops! Resposta errada. O bonequinho ficou triste...';
+        feedback.textContent = '❌ Ops! Resposta errada. O coelhinho ficou tristinho... 🐰💧';
         feedback.style.color = '#ef5350';
 
         setTimeout(() => {
-            personagem.classList.remove('triste');
+            coelhinho.classList.remove('triste');
             rodadaAtual++;
             carregarPergunta();
         }, 1800);
@@ -165,35 +152,10 @@ function finalizarJogo() {
     finalScoreSpan.textContent = acertos;
 
     if (acertos === 10) {
-        endTitle.textContent = '🏆 Perfeito! Você chegou ao topo!';
-        finalMessage.textContent = 'Uau! Acertou tudo e alcançou a bandeira! Você é um verdadeiro artista! 🎉';
+        endTitle.textContent = '🥕 Perfeito! O coelhinho conseguiu a cenoura!';
+        finalMessage.textContent = 'Uau! Acertou tudo! O coelhinho está muito feliz e com a barriguinha cheia! 🐰🎉';
         finalMessage.style.color = '#66bb6a';
         trofeu.classList.remove('escondido');
     } else if (acertos >= 7) {
         endTitle.textContent = '🌟 Muito bem!';
-        finalMessage.textContent = 'Você conhece muito sobre arte! Continue subindo essa escada! 😊';
-        finalMessage.style.color = '#81c784';
-        trofeu.classList.remove('escondido');
-    } else if (acertos >= 4) {
-        endTitle.textContent = '🎨 Bom trabalho!';
-        finalMessage.textContent = 'Você está no caminho certo! Que tal estudar um pouquinho mais? 📚';
-        finalMessage.style.color = '#64b5f6';
-        trofeu.classList.add('escondido');
-    } else {
-        endTitle.textContent = '💪 Continue tentando!';
-        finalMessage.textContent = 'Não desanime! A arte é um mundo maravilhoso. Tente de novo! 🌈';
-        finalMessage.style.color = '#f48fb1';
-        trofeu.classList.add('escondido');
-    }
-}
-
-// ===== EVENT LISTENERS =====
-btnIniciar.addEventListener('click', iniciarJogo);
-btnReiniciar.addEventListener('click', () => {
-    endScreen.classList.remove('active');
-    startScreen.classList.add('active');
-    personagem.classList.remove('triste');
-    personagem.style.bottom = BOTTOM_INICIAL + 'px';
-    bandeira.classList.remove('alcancada');
-    degraus.forEach(d => d.classList.remove('ativo'));
-});
+        finalMessage.textContent = 'Voc
