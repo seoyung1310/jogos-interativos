@@ -77,32 +77,40 @@
   const TOTAL_STEPS = 10;
   let stepElements = [];
 
-  // ---------- ELEMENTOS DOM ----------
-  const startScreen      = document.getElementById('startScreen');
-  const gameArea         = document.getElementById('gameArea');
-  const endScreen        = document.getElementById('endScreen');
-  const startBtn         = document.getElementById('startBtn');
-  const playAgainBtn     = document.getElementById('playAgainBtn');
-  const roundInfo        = document.getElementById('roundInfo');
-  const scoreDisplay     = document.getElementById('scoreDisplay');
-  const questionText     = document.getElementById('questionText');
-  const optionsGrid      = document.getElementById('optionsGrid');
-  const feedbackMessage  = document.getElementById('feedbackMessage');
-  const nextBtn          = document.getElementById('nextBtn');
-  const bunnyWrapper     = document.getElementById('bunnyWrapper');
-  const carrotThrow      = document.getElementById('carrotThrow');
-  const ladderArea       = document.getElementById('ladderArea');
-  const endBunny         = document.getElementById('endBunny');
-  const endTitle         = document.getElementById('endTitle');
-  const endScore         = document.getElementById('endScore');
+  // Elementos DOM (serão preenchidos no init)
+  let startScreen, gameArea, endScreen, startBtn, playAgainBtn;
+  let roundInfo, scoreDisplay, questionText, optionsGrid;
+  let feedbackMessage, nextBtn, ladderArea;
+  let endBunny, endTitle, endScore;
+  let bunnyWrapper, carrotThrow;
 
-  // ---------- FUNÇÕES ----------
+  // ---------- CRIAÇÃO DO COELHO (feita uma única vez) ----------
+  function createBunny() {
+    bunnyWrapper = document.createElement('div');
+    bunnyWrapper.classList.add('bunny-wrapper');
+    bunnyWrapper.id = 'bunnyWrapper';
 
-  // Cria os degraus da escada + reposiciona o coelho
+    const bunnyEmoji = document.createElement('div');
+    bunnyEmoji.classList.add('bunny-emoji');
+    bunnyEmoji.textContent = '🐇';
+
+    carrotThrow = document.createElement('div');
+    carrotThrow.classList.add('carrot-throw');
+    carrotThrow.textContent = '🥕';
+
+    bunnyWrapper.appendChild(bunnyEmoji);
+    bunnyWrapper.appendChild(carrotThrow);
+
+    return bunnyWrapper;
+  }
+
+  // ---------- CRIAÇÃO DA ESCADA ----------
   function createLadder() {
+    // Limpa a área
     ladderArea.innerHTML = '';
     stepElements = [];
 
+    // Cria os 10 degraus
     for (let i = 0; i < TOTAL_STEPS; i++) {
       const step = document.createElement('div');
       step.classList.add('step');
@@ -113,12 +121,19 @@
       stepElements.push(step);
     }
 
+    // Cria o coelho (novo, sempre)
+    createBunny();
     ladderArea.appendChild(bunnyWrapper);
-    updateBunnyPosition(0);
+
+    // Posiciona no chão
+    updateBunnyPosition(score);
   }
 
-  // Atualiza a posição do coelho conforme o número de acertos
+  // ---------- ATUALIZA POSIÇÃO DO COELHO ----------
   function updateBunnyPosition(scoreValue) {
+    if (!bunnyWrapper) return;
+
+    // Marca degraus preenchidos
     stepElements.forEach((step, idx) => {
       if (idx < scoreValue) {
         step.classList.add('filled');
@@ -127,27 +142,30 @@
       }
     });
 
+    // Ajusta a altura do coelho
     if (scoreValue === 0) {
-      bunnyWrapper.style.marginBottom = '0px';
+      bunnyWrapper.style.marginBottom = '10px';
     } else {
-      const stepIndex = scoreValue - 1;
+      const stepIndex = Math.min(scoreValue - 1, TOTAL_STEPS - 1);
       const stepHeight = 8 + (stepIndex * 6);
       bunnyWrapper.style.marginBottom = (stepHeight + 28) + 'px';
     }
   }
 
-  // Efeito de erro: coelho joga cenoura e chora
+  // ---------- EFEITO DE ERRO ----------
   function bunnyThrowCarrotAndCry() {
+    if (!bunnyWrapper || !carrotThrow) return;
+
     bunnyWrapper.classList.add('bunny-crying');
     carrotThrow.classList.add('throw');
 
     setTimeout(() => {
       bunnyWrapper.classList.remove('bunny-crying');
       carrotThrow.classList.remove('throw');
-    }, 800);
+    }, 900);
   }
 
-  // Carrega a pergunta atual
+  // ---------- CARREGAR PERGUNTA ----------
   function loadQuestion() {
     answered = false;
     nextBtn.classList.remove('visible');
@@ -174,7 +192,7 @@
     updateBunnyPosition(score);
   }
 
-  // Trata a resposta do jogador
+  // ---------- TRATAR RESPOSTA ----------
   function handleAnswer(selectedIndex, btnElement) {
     if (answered) return;
     answered = true;
@@ -192,7 +210,7 @@
       updateBunnyPosition(score);
     } else {
       btnElement.classList.add('wrong');
-      allBtns[q.correct].classList.add('correct');
+      if (allBtns[q.correct]) allBtns[q.correct].classList.add('correct');
       feedbackMessage.textContent = '❌ Errou! O coelho jogou a cenoura e chorou...';
       bunnyThrowCarrotAndCry();
     }
@@ -200,7 +218,7 @@
     nextBtn.classList.add('visible');
   }
 
-  // Avança para a próxima pergunta ou finaliza
+  // ---------- PRÓXIMA PERGUNTA ----------
   function nextQuestion() {
     if (currentQuestionIndex < totalQuestions - 1) {
       currentQuestionIndex++;
@@ -210,7 +228,7 @@
     }
   }
 
-  // Exibe a tela final
+  // ---------- TELA FINAL ----------
   function showEndScreen() {
     gameArea.classList.remove('active');
     endScreen.classList.add('active');
@@ -233,22 +251,7 @@
     }
   }
 
-  // Reinicia completamente o jogo
-  function resetGame() {
-    currentQuestionIndex = 0;
-    score = 0;
-    answered = false;
-
-    endScreen.classList.remove('active');
-    startScreen.classList.add('hidden');
-    gameArea.classList.add('active');
-
-    scoreDisplay.textContent = '0';
-    createLadder();
-    loadQuestion();
-  }
-
-  // Inicia o jogo a partir da tela inicial
+  // ---------- INICIAR JOGO ----------
   function startGame() {
     startScreen.classList.add('hidden');
     endScreen.classList.remove('active');
@@ -262,14 +265,44 @@
     loadQuestion();
   }
 
-  // ---------- EVENT LISTENERS ----------
-  startBtn.addEventListener('click', startGame);
-  nextBtn.addEventListener('click', nextQuestion);
-  playAgainBtn.addEventListener('click', resetGame);
+  // ---------- REINICIAR ----------
+  function resetGame() {
+    endScreen.classList.remove('active');
+    startGame();
+  }
 
-  // Inicializa a escada quando a página carrega
-  window.addEventListener('DOMContentLoaded', () => {
+  // ---------- INICIALIZAÇÃO ----------
+  function init() {
+    // Pega todos os elementos do DOM
+    startScreen     = document.getElementById('startScreen');
+    gameArea        = document.getElementById('gameArea');
+    endScreen       = document.getElementById('endScreen');
+    startBtn        = document.getElementById('startBtn');
+    playAgainBtn    = document.getElementById('playAgainBtn');
+    roundInfo       = document.getElementById('roundInfo');
+    scoreDisplay    = document.getElementById('scoreDisplay');
+    questionText    = document.getElementById('questionText');
+    optionsGrid     = document.getElementById('optionsGrid');
+    feedbackMessage = document.getElementById('feedbackMessage');
+    nextBtn         = document.getElementById('nextBtn');
+    ladderArea      = document.getElementById('ladderArea');
+    endBunny        = document.getElementById('endBunny');
+    endTitle        = document.getElementById('endTitle');
+    endScore        = document.getElementById('endScore');
+
+    // Event listeners
+    startBtn.addEventListener('click', startGame);
+    nextBtn.addEventListener('click', nextQuestion);
+    playAgainBtn.addEventListener('click', resetGame);
+
+    // Cria a escada já escondida (gameArea está display:none)
     createLadder();
-    updateBunnyPosition(0);
-  });
+  }
+
+  // Aguarda o DOM estar pronto
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
