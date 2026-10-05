@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎨 Jogo das Artes - Subida na Escada 🎭</title>
+    <title>🐰 Jogo das Artes - Coelhinho da Cenoura 🥕</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -12,26 +12,46 @@
         <!-- Tela de Abertura -->
         <div id="start-screen" class="screen active">
             <div class="fofo-header">
-                <h1>🎨 Jogo das Artes 🎭</h1>
+                <h1>🐰 Jogo das Artes 🥕</h1>
                 <p>Música • Dança • Teatro • Artes Visuais</p>
             </div>
 
             <div class="abertura-ilustracao">
                 <div class="nuvem nuvem-1">☁️</div>
                 <div class="nuvem nuvem-2">☁️</div>
+                <div class="nuvem nuvem-3">☁️</div>
                 <div class="estrela estrela-1">⭐</div>
-                <div class="estrela estrela-2">⭐</div>
-                <div class="estrela estrela-3">✨</div>
+                <div class="estrela estrela-2">✨</div>
+                <div class="coracao coracao-1">💗</div>
+                <div class="coracao coracao-2">💚</div>
+
+                <!-- Escadinha da abertura -->
                 <div class="escada-abertura">
-                    <div class="degrau"></div>
-                    <div class="degrau"></div>
-                    <div class="degrau"></div>
-                    <div class="degrau"></div>
+                    <div class="degrau-a"></div>
+                    <div class="degrau-a"></div>
+                    <div class="degrau-a"></div>
+                    <div class="degrau-a"></div>
                 </div>
-                <div class="boneco-abertura">🧒</div>
+
+                <!-- Cenoura no topo -->
+                <div class="cenoura-abertura">🥕</div>
+
+                <!-- Coelhinho fofo -->
+                <div class="coelho-abertura">
+                    <div class="orelha-e"></div>
+                    <div class="orelha-d"></div>
+                    <div class="rosto">
+                        <div class="olho-e"></div>
+                        <div class="olho-d"></div>
+                        <div class="nariz"></div>
+                        <div class="bochecha-e"></div>
+                        <div class="bochecha-d"></div>
+                    </div>
+                    <div class="corpinho"></div>
+                </div>
             </div>
 
-            <p class="instrucoes">Responda 10 perguntas sobre Arte.<br>A cada acerto, o bonequinho sobe um degrau! 🪜</p>
+            <p class="instrucoes">Responda 10 perguntas sobre Arte.<br>A cada acerto, o coelhinho sobe um degrau até a cenoura! 🥕</p>
             <button id="btn-iniciar" class="btn-fofo">✨ Começar a Jogar ✨</button>
         </div>
 
@@ -43,6 +63,9 @@
             </div>
 
             <div class="cena-area">
+                <!-- Cenoura no topo -->
+                <div class="cenoura-topo" id="cenouraTopo">🥕</div>
+
                 <!-- Escada -->
                 <div class="escada" id="escada">
                     <div class="degrau-jogo" data-degrau="10"></div>
@@ -57,26 +80,20 @@
                     <div class="degrau-jogo" data-degrau="1"></div>
                 </div>
 
-                <!-- Personagem que sobe -->
-                <div class="personagem" id="personagem">
-                    <div class="cabeca">
-                        <div class="olho-esq"></div>
-                        <div class="olho-dir"></div>
-                        <div class="boca"></div>
+                <!-- Coelhinho que sobe -->
+                <div class="coelhinho" id="personagem">
+                    <div class="orelha-ce"></div>
+                    <div class="orelha-cd"></div>
+                    <div class="rosto-coelho">
+                        <div class="olho-ce"></div>
+                        <div class="olho-cd"></div>
+                        <div class="nariz-coelho"></div>
+                        <div class="bochecha-ce"></div>
+                        <div class="bochecha-cd"></div>
                     </div>
-                    <div class="corpo"></div>
-                    <div class="bracos">
-                        <div class="braco-esq"></div>
-                        <div class="braco-dir"></div>
-                    </div>
-                    <div class="pernas">
-                        <div class="perna-esq"></div>
-                        <div class="perna-dir"></div>
-                    </div>
+                    <div class="corpo-coelho"></div>
+                    <div class="rabo-coelho"></div>
                 </div>
-
-                <!-- Bandeira no topo -->
-                <div class="bandeira" id="bandeira">🚩</div>
             </div>
 
             <div class="pergunta-box">
@@ -94,7 +111,7 @@
             <div class="resultado">
                 <p>Você acertou <span id="final-score">0</span> de 10 perguntas.</p>
                 <div id="final-message" class="final-message"></div>
-                <div class="trofeu" id="trofeu">🏆</div>
+                <div class="trofeu" id="trofeu">🥕</div>
             </div>
             <button id="btn-reiniciar" class="btn-fofo">🔄 Jogar Novamente</button>
         </div>
