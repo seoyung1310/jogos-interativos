@@ -42,23 +42,29 @@ const BOTTOM_INICIAL = 30;
 
 // ===== INICIAR JOGO =====
 function iniciarJogo() {
+    // Resetar estado
     rodadaAtual = 0;
     acertos = 0;
     respondeu = false;
 
+    // Resetar coelhinho
     coelhinho.classList.remove('triste');
     coelhinho.style.bottom = BOTTOM_INICIAL + 'px';
 
+    // Resetar degraus e cenoura
     degraus.forEach(d => d.classList.remove('ativo'));
     cenouraTopo.classList.remove('alcancada');
 
+    // Resetar placar
     currentRoundSpan.textContent = '1';
     scoreSpan.textContent = '0';
 
+    // Trocar telas
     startScreen.classList.remove('active');
     endScreen.classList.remove('active');
     gameScreen.classList.add('active');
 
+    // Carregar a primeira pergunta imediatamente
     carregarPergunta();
 }
 
@@ -79,8 +85,10 @@ function carregarPergunta() {
     const perguntaAtual = perguntas[rodadaAtual];
     perguntaTexto.textContent = perguntaAtual.pergunta;
 
+    // Limpar alternativas antigas
     alternativasContainer.innerHTML = '';
 
+    // Criar botões
     perguntaAtual.alternativas.forEach((alternativa, index) => {
         const btn = document.createElement('button');
         btn.classList.add('alternativa-btn');
@@ -158,4 +166,30 @@ function finalizarJogo() {
         trofeu.classList.remove('escondido');
     } else if (acertos >= 7) {
         endTitle.textContent = '🌟 Muito bem!';
-        finalMessage.textContent = 'Voc
+        finalMessage.textContent = 'Você conhece muito sobre arte! O coelhinho quase alcançou a cenoura! 🐰🥕';
+        finalMessage.style.color = '#81c784';
+        trofeu.classList.remove('escondido');
+    } else if (acertos >= 4) {
+        endTitle.textContent = '🎨 Bom trabalho!';
+        finalMessage.textContent = 'Você está no caminho certo! Que tal estudar um pouquinho mais? 📚';
+        finalMessage.style.color = '#64b5f6';
+        trofeu.classList.add('escondido');
+    } else {
+        endTitle.textContent = '💪 Continue tentando!';
+        finalMessage.textContent = 'Não desanime! A arte é um mundo maravilhoso. Tente de novo! 🌈';
+        finalMessage.style.color = '#f48fb1';
+        trofeu.classList.add('escondido');
+    }
+}
+
+// ===== EVENT LISTENERS =====
+btnIniciar.addEventListener('click', iniciarJogo);
+
+btnReiniciar.addEventListener('click', () => {
+    endScreen.classList.remove('active');
+    startScreen.classList.add('active');
+    coelhinho.classList.remove('triste');
+    coelhinho.style.bottom = BOTTOM_INICIAL + 'px';
+    cenouraTopo.classList.remove('alcancada');
+    degraus.forEach(d => d.classList.remove('ativo'));
+});
