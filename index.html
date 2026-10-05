@@ -3,54 +3,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎨 Jogo das Artes - Enforcado Fofo 🎭</title>
+  <title>🐰 Coelhinho das Artes - Jogo Educativo</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="game-container">
+  <div class="container">
 
     <!-- TELA DE ABERTURA -->
-    <div id="start-screen" class="screen active">
-      <h1 class="titulo">🎨 Jogo das Artes 🎭</h1>
-      <p class="subtitulo">Música • Dança • Teatro • Artes Visuais</p>
+    <div id="telaAbertura" class="tela ativa">
+      <div class="nuvem nuvem1">☁️</div>
+      <div class="nuvem nuvem2">☁️</div>
+      <div class="nuvem nuvem3">☁️</div>
 
-      <div class="boneco-abertura">🐰</div>
+      <div class="coelho-abertura">
+        <div class="coelho-emoji">🐰</div>
+      </div>
 
-      <p class="instrucoes">
-        Responda 10 perguntas sobre Arte.<br>
-        Se errar, o coelhinho fica triste! 😢
-      </p>
+      <h1 class="titulo-abertura">Coelhinho das Artes 🎨</h1>
+      <p class="subtitulo-abertura">Ajude o coelhinho a subir a escada<br>respondendo perguntas sobre <strong>Arte</strong>!</p>
 
-      <button id="btn-iniciar" class="btn-fofo">✨ Começar a Jogar ✨</button>
+      <div class="categorias">
+        <span class="cat cat-musica">🎵 Música</span>
+        <span class="cat cat-danca">💃 Dança</span>
+        <span class="cat cat-teatro">🎭 Teatro</span>
+        <span class="cat cat-visual">🖼️ Artes Visuais</span>
+      </div>
+
+      <button id="btnIniciar" class="btn-iniciar">🌸 INICIAR 🌸</button>
+      <p class="dica">10 perguntas • 1 coelho fofo • Muita arte!</p>
     </div>
 
     <!-- TELA DO JOGO -->
-    <div id="game-screen" class="screen">
-      <div class="top-bar">
-        <div class="info">Rodada: <span id="current-round">1</span>/10</div>
-        <div class="info">Acertos: <span id="score">0</span></div>
+    <div id="telaJogo" class="tela">
+      <header class="header-jogo">
+        <div class="info-rodada">
+          <span class="badge">Pergunta <span id="numPergunta">1</span>/10</span>
+          <span class="badge badge-acertos">⭐ <span id="acertos">0</span></span>
+        </div>
+        <button id="btnReiniciar" class="btn-reiniciar">🔄</button>
+      </header>
+
+      <!-- CENÁRIO DA ESCADA -->
+      <div class="cenario">
+        <div class="ceu"></div>
+        <div class="sol">☀️</div>
+
+        <div class="escada" id="escada">
+          <!-- Degraus gerados via JS -->
+        </div>
+
+        <div class="coelho-container" id="coelhoContainer">
+          <div class="coelho" id="coelho">
+            <div class="balao-fala" id="balaoFala"></div>
+            <div class="coelho-corpo">
+              <div class="orelha orelha-e"></div>
+              <div class="orelha orelha-d"></div>
+              <div class="cabeca">
+                <div class="olho olho-e"></div>
+                <div class="olho olho-d"></div>
+                <div class="nariz"></div>
+                <div class="bochecha bochecha-e"></div>
+                <div class="bochecha bochecha-d"></div>
+                <div class="bigode bigode-e"></div>
+                <div class="bigode bigode-d"></div>
+              </div>
+            </div>
+            <div class="cenoura" id="cenoura">🥕</div>
+          </div>
+        </div>
+
+        <div class="grama"></div>
       </div>
 
-      <div class="coelho-area">
-        <div id="coelho" class="coelho">🐇</div>
+      <!-- PAINEL DA PERGUNTA -->
+      <div class="painel-pergunta">
+        <div class="categoria-pergunta" id="categoriaPergunta">🎵 Música</div>
+        <h2 class="pergunta" id="pergunta">Carregando...</h2>
+        <div class="alternativas" id="alternativas"></div>
+        <div class="feedback" id="feedback"></div>
       </div>
-
-      <div class="pergunta-box">
-        <p id="pergunta-texto">Carregando pergunta...</p>
-      </div>
-
-      <div id="alternativas-container" class="alternativas"></div>
-
-      <div id="feedback" class="feedback"></div>
     </div>
 
     <!-- TELA FINAL -->
-    <div id="end-screen" class="screen">
-      <h2 id="end-title">Fim de Jogo!</h2>
-      <p class="resultado-texto">Você acertou <span id="final-score">0</span> de 10 perguntas.</p>
-      <div id="final-message" class="final-message"></div>
-      <button id="btn-reiniciar" class="btn-fofo">🔄 Jogar Novamente</button>
+    <div id="telaFinal" class="tela">
+      <div class="resultado-card">
+        <div class="emoji-final" id="emojiFinal">🏆</div>
+        <h1 id="tituloFinal">Parabéns!</h1>
+        <p id="mensagemFinal"></p>
+        <div class="pontuacao-final">
+          <span class="acertos-final" id="acertosFinal">0</span>
+          <span class="de">/ 10</span>
+        </div>
+        <button id="btnJogarNovamente" class="btn-iniciar">🌈 JOGAR NOVAMENTE</button>
+      </div>
     </div>
 
   </div>
