@@ -1,0 +1,182 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+            body {
+              min-height: 100vh;
+                display: flex;
+                  justify-content: center;
+                    align-items: center;
+                      padding: 20px;
+                        background: #fce4ec;
+                          color: #5d4057;
+                          }
+
+                          .container {
+                            width: 100%;
+                              max-width: 650px;
+                                min-height: 520px;
+                                  padding: 35px;
+                                    text-align: center;
+                                      position: relative;
+                                        overflow: hidden;
+                                          background: #fffafc;
+                                            border: 6px solid #b8dfc5;
+                                              border-radius: 30px;
+                                                box-shadow: 0 10px 25px rgba(201, 143, 160, 0.35);
+                                                }
+
+                                                .container::before,
+                                                .container::after {
+                                                  content: "🌸";
+                                                    position: absolute;
+                                                      font-size: 42px;
+                                                        opacity: 0.7;
+                                                        }
+
+                                                        .container::before {
+                                                          top: 15px;
+                                                            left: 20px;
+                                                            }
+
+                                                            .container::after {
+                                                              right: 20px;
+                                                                bottom: 15px;
+                                                                }
+
+                                                                .coelho {
+                                                                  font-size: 70px;
+                                                                    margin-bottom: 10px;
+                                                                    }
+
+                                                                    .tela {
+                                                                      display: none;
+                                                                      }
+
+                                                                      .tela.ativa {
+                                                                        display: block;
+                                                                        }
+
+                                                                        h1 {
+                                                                          margin-bottom: 12px;
+                                                                            color: #d96c83;
+                                                                              font-size: 38px;
+                                                                              }
+
+                                                                              h2 {
+                                                                                margin: 25px 0;
+                                                                                  color: #c85c70;
+                                                                                  }
+
+                                                                                  p {
+                                                                                    margin: 12px 0;
+                                                                                      font-size: 18px;
+                                                                                      }
+
+                                                                                      .descricao {
+                                                                                        margin-bottom: 28px;
+                                                                                          color: #6b8e78;
+                                                                                          }
+
+                                                                                          button {
+                                                                                            margin: 10px;
+                                                                                              padding: 14px 24px;
+                                                                                                border: none;
+                                                                                                  border-radius: 18px;
+                                                                                                    font-size: 17px;
+                                                                                                      font-weight: bold;
+                                                                                                        cursor: pointer;
+                                                                                                          transition: 0.2s;
+                                                                                                          }
+
+                                                                                                          button:hover {
+                                                                                                            transform: scale(1.05);
+                                                                                                              filter: brightness(0.96);
+                                                                                                              }
+
+                                                                                                              #btnIniciar,
+                                                                                                              #btnReiniciar,
+                                                                                                              #btnProxima {
+                                                                                                                background: #d98b9b;
+                                                                                                                  color: white;
+                                                                                                                  }
+
+                                                                                                                  .topo {
+                                                                                                                    display: flex;
+                                                                                                                      justify-content: space-between;
+                                                                                                                        padding: 12px;
+                                                                                                                          background: #dff1e4;
+                                                                                                                            border-radius: 15px;
+                                                                                                                              font-weight: bold;
+                                                                                                                              }
+
+                                                                                                                              .opcoes {
+                                                                                                                                margin: 20px 0;
+                                                                                                                                }
+
+                                                                                                                                #btnVerdade {
+                                                                                                                                  background: #b8dfc5;
+                                                                                                                                    color: #41634d;
+                                                                                                                                    }
+
+                                                                                                                                    #btnDesafio {
+                                                                                                                                      background: #f2a6b8;
+                                                                                                                                        color: #713d4b;
+                                                                                                                                        }
+
+                                                                                                                                        .cartao {
+                                                                                                                                          min-height: 150px;
+                                                                                                                                            margin-top: 15px;
+                                                                                                                                              padding: 22px;
+                                                                                                                                                background: #fff0f4;
+                                                                                                                                                  border: 3px dashed #e49aaa;
+                                                                                                                                                    border-radius: 20px;
+                                                                                                                                                    }
+
+                                                                                                                                                    #textoCartao {
+                                                                                                                                                      font-size: 20px;
+                                                                                                                                                        font-weight: bold;
+                                                                                                                                                        }
+
+                                                                                                                                                        .resposta {
+                                                                                                                                                          display: block;
+                                                                                                                                                            width: 90%;
+                                                                                                                                                              margin: 10px auto;
+                                                                                                                                                                background: #ccebd5;
+                                                                                                                                                                  color: #41634d;
+                                                                                                                                                                  }
+
+                                                                                                                                                                  .correta {
+                                                                                                                                                                    background: #a8d5b5 !important;
+                                                                                                                                                                    }
+
+                                                                                                                                                                    .errada {
+                                                                                                                                                                      background: #ef9aaa !important;
+                                                                                                                                                                      }
+
+                                                                                                                                                                      .oculto {
+                                                                                                                                                                        display: none;
+                                                                                                                                                                        }
+
+                                                                                                                                                                        #resultado {
+                                                                                                                                                                          margin: 25px 0;
+                                                                                                                                                                            color: #6b8e78;
+                                                                                                                                                                              font-size: 22px;
+                                                                                                                                                                              }
+
+                                                                                                                                                                              @media (max-width: 500px) {
+                                                                                                                                                                                .container {
+                                                                                                                                                                                    padding: 25px 15px;
+                                                                                                                                                                                      }
+
+                                                                                                                                                                                        h1 {
+                                                                                                                                                                                            font-size: 30px;
+                                                                                                                                                                                              }
+
+                                                                                                                                                                                                .topo {
+                                                                                                                                                                                                    font-size: 14px;
+                                                                                                                                                                                                      }
+                                                                                                                                                                                                      }
